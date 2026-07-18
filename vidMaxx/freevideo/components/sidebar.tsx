@@ -40,10 +40,12 @@ export function Sidebar() {
 
       {/* Primary Action */}
       <div className="p-6">
-        <Button className="w-full bg-white text-black hover:bg-zinc-200 hover:scale-[1.02] transition-all h-12 shadow-sm rounded-lg flex items-center justify-center gap-2 font-semibold text-[15px]">
-          <Plus className="w-5 h-5" />
-          Create New Series
-        </Button>
+        <Link href="/dashboard/create">
+          <Button className="w-full bg-white text-black hover:bg-zinc-200 hover:scale-[1.02] transition-all h-12 shadow-sm rounded-lg flex items-center justify-center gap-2 font-semibold text-[15px]">
+            <Plus className="w-5 h-5" />
+            Create New Series
+          </Button>
+        </Link>
       </div>
 
       {/* Navigation */}
