@@ -21,24 +21,28 @@ export const metadata: Metadata = {
   description: "The new standard for video automation.",
 };
 
+import { ClerkProvider } from '@clerk/nextjs'
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body
-        className={`${plusJakarta.variable} ${bricolage.variable} min-h-screen bg-black text-white antialiased flex flex-col font-sans`}
-      >
-        <TooltipProvider>
-          <Navbar />
-          <main className="flex-1 flex flex-col pt-24 pb-8">
-            {children}
-          </main>
-          <Footer />
-        </TooltipProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className="dark">
+        <body
+          className={`${plusJakarta.variable} ${bricolage.variable} min-h-screen bg-black text-white antialiased flex flex-col font-sans`}
+        >
+          <TooltipProvider>
+            <Navbar />
+            <main className="flex-1 flex flex-col pt-24 pb-8">
+              {children}
+            </main>
+            <Footer />
+          </TooltipProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
