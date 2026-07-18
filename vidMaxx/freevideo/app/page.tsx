@@ -5,6 +5,8 @@ import { AnimatedRevealText } from "@/components/ui/animated-reveal-text";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Play } from "lucide-react";
+import { useAuth, SignUpButton } from "@clerk/nextjs";
+import Link from "next/link";
 
 const Instagram = ({ className }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -21,6 +23,7 @@ const Youtube = ({ className }: { className?: string }) => (
 );
 
 export default function Home() {
+  const { isSignedIn } = useAuth();
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -65,9 +68,19 @@ export default function Home() {
             transition={{ duration: 1, delay: 1, ease: [0.16, 1, 0.3, 1] }}
             className="mt-12"
           >
-            <Button size="lg" className="h-14 px-10 rounded-none bg-white text-black hover:bg-zinc-200 text-[15px] font-semibold transition-all">
-              Start Building
-            </Button>
+            {!isSignedIn ? (
+              <SignUpButton mode="modal" forceRedirectUrl="/dashboard">
+                <Button size="lg" className="h-14 px-10 rounded-none bg-white text-black hover:bg-zinc-200 text-[15px] font-semibold transition-all">
+                  Start Building
+                </Button>
+              </SignUpButton>
+            ) : (
+              <Link href="/dashboard">
+                <Button size="lg" className="h-14 px-10 rounded-none bg-white text-black hover:bg-zinc-200 text-[15px] font-semibold transition-all">
+                  Go to Dashboard
+                </Button>
+              </Link>
+            )}
           </motion.div>
         </motion.div>
       </section>
@@ -196,9 +209,19 @@ export default function Home() {
             <p className="text-xl md:text-2xl text-zinc-400 font-light mb-12 max-w-2xl">
               Experience the power of automated video infrastructure today.
             </p>
-            <Button size="lg" className="h-16 px-12 rounded-none bg-white text-black hover:bg-zinc-200 text-[15px] font-bold tracking-wide uppercase transition-all">
-              Create an account
-            </Button>
+            {!isSignedIn ? (
+              <SignUpButton mode="modal" forceRedirectUrl="/sync">
+                <Button size="lg" className="h-16 px-12 rounded-none bg-white text-black hover:bg-zinc-200 text-[15px] font-bold tracking-wide uppercase transition-all">
+                  Create an account
+                </Button>
+              </SignUpButton>
+            ) : (
+              <Link href="/dashboard">
+                <Button size="lg" className="h-16 px-12 rounded-none bg-white text-black hover:bg-zinc-200 text-[15px] font-bold tracking-wide uppercase transition-all">
+                  Go to Dashboard
+                </Button>
+              </Link>
+            )}
           </motion.div>
         </div>
       </section>
